@@ -14,7 +14,7 @@
 - .quest "undersea fish mural" "catch 5 fire types" "3 hyper potions"
 - The bot will find closely matching names as well, so no need to type them out completey (for pokestop name)
 - Example: if "That One Red Lion" was a pokestop name, you can do:
-. .quest "red lion" "catch 3 water types" "5 pokeballs"
+- .quest "red lion" "catch 3 water types" "5 pokeballs"
 ## Admin Tools
 - The following are limited to admins only, as chosen by the bot owner
 - **.resetquests** _or_ **.rq** to clear the quests channel at midnight/quests change.
