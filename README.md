@@ -10,7 +10,7 @@
 - Please keep in mind, there are to be NO spaces in between the lat,lon
 ## Quests
 - Please keep in mind, each argument is supposed to be in between it's own quotes, in the correct order!
-- .quest <pokestop> <quest> <quest_reward>
+- .quest "pokestop" "quest" "quest_reward"
 - .quest "undersea fish mural" "catch 5 fire types" "3 hyper potions"
 - The bot will find closely matching names as well, so no need to type them out completey (for pokestop name)
 - Example: if "That One Red Lion" was a pokestop name, you can do:
