@@ -20,5 +20,5 @@
 - **.resetquests** _or_ **.rq** to clear the quests channel at midnight/quests change.
 - **.setprefix** to set the prefix, by default the prefix is **.**
 
-#Setup
+# Setup
 - Coming soon. Easy to figure out, otherwise. 
