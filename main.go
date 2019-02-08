@@ -22,7 +22,7 @@ func init() {
 }
 
 func main() {
-	var Token string = config.Token //Add bot token here
+	var Token string = config.Token
 	dg, err := discordgo.New("Bot " + Token)
 	if err != nil {
 		fmt.Println("Error occurred creating discord session - ", err)
@@ -186,7 +186,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			s.ChannelMessageSend(m.ChannelID, "You have ran the command incorrectly.\n" +
 				"Please see the how-to guide: https://goo.gl/ckdYbE")
 		}else{
-			fmt.Println("len is not greater")
 			s.ChannelMessageSend(m.ChannelID, "Pokestop not found!")
 		}
 	}
