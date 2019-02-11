@@ -96,7 +96,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Text:"Created by github.com/rkhous",
 							IconURL:"https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
 						Title:     "**" + strings.Title(getArgs[1] + " - Click for directions!**"),
-						URL: "http://maps.google.com/maps?daddr=" + getArgs[2] + "&amp;ll=",
+						URL: "https://www.google.com/maps/?q=" + getArgs[2],
 					}
 					s.ChannelMessageSendEmbed(config.SpawnsChannel, embed)
 					s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "!\n" +
@@ -116,7 +116,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Text:"Created by github.com/rkhous",
 							IconURL:"https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
 						Title:     "**" + strings.Title(getArgs[1] + " - Click for directions!**"),
-						URL: "http://maps.google.com/maps?daddr=" + getArgs[2] + "&amp;ll=",
+						URL: "https://www.google.com/maps/?q=" + getArgs[2],
 					}
 					s.ChannelMessageSendEmbed(config.SpawnsChannel, embed)
 					s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "!\n" +
@@ -176,7 +176,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					Text:    "Created by github.com/rkhous",
 					IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
 				Title: "**" + stopInformation["name"] + " - Click for directions!**",
-				URL:   "http://maps.google.com/maps?daddr=" + stopInformation["lat,lon"] + "&amp;ll=",
+				URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
 			}
 			reportedQuest, _ := s.ChannelMessageSendEmbed(config.QuestChannel, embed)
 			config.LiveQuests = append(config.LiveQuests, reportedQuest.ID)
