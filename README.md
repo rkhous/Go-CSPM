@@ -1,5 +1,6 @@
 # About Go-CSPM / Supporting
 - Written in Go https://golang.org/
+- Support: https://discord.gg/CwqbHt5
 - Want to buy me a coffee? https://www.paypal.me/rkhous/5
 
 # Commands
