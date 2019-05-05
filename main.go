@@ -146,7 +146,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		var check bool
 		if strings.Contains(m.Content, "\"") == true {
 			getQuestArgs = strings.Split(m.Content, "\"")
-			questType = getQuestArgs[1]
+			stopName = getQuestArgs[1]
 			questType = getQuestArgs[3]
 			questReward = getQuestArgs[5]
 			stopInformation = functions.GrabStopInformation(stopName)
