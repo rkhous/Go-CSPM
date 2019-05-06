@@ -162,7 +162,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			check = false
 		}
 		if len(stopInformation) >= 3 && check == true {
-			if len(stopInformation) > 0 {
 				embed := &discordgo.MessageEmbed{
 					Author: &discordgo.MessageEmbedAuthor{},
 					Color:  0x00ff00,
@@ -183,12 +182,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				config.LiveQuests = append(config.LiveQuests, reportedQuest.ID)
 				fmt.Println("User " + m.Author.Username + " has reported a new quest.")
 				s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your quest was reported successfully.")
-			}else{
-				s.ChannelMessageSend(m.ChannelID, "Sorry, but no results were found for that Pokéstop!")
-			}
 		} else if check != true {
 			s.ChannelMessageSend(m.ChannelID, "You have ran the command incorrectly.\n"+
 				"Please see the how-to guide: https://goo.gl/ckdYbE")
+		} else{
+			s.ChannelMessageSend(m.ChannelID, "Sorry, but that Pokéstop does not exist in the database.")
 		}
 	}
 
