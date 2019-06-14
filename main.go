@@ -137,7 +137,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 	}
 
-	if getArgs[0] == config.Prefix+"quest" {
+	if getArgs[0] == config.Prefix + "quest" {
 		var getQuestArgs []string
 		var stopName string
 		var questType string
@@ -146,7 +146,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		var check bool
 		if strings.Contains(m.Content, "\"") == true {
 			getQuestArgs = strings.Split(m.Content, "\"")
-			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[0], ".quest") != true{
+			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[1], ".quest") != true{
 				stopName = getQuestArgs[1]
 				questType = getQuestArgs[3]
 				questReward = getQuestArgs[5]
@@ -157,7 +157,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			}
 		} else if strings.Contains(m.Content, "“") == true {
 			getQuestArgs = strings.Split(m.Content, "“")
-			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[0], ".quest") != true{
+			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[1], ".quest") != true{
 				stopName = strings.Split(getQuestArgs[1], "”")[0]
 				questType = strings.Split(getQuestArgs[2], "”")[0]
 				questReward = strings.Split(getQuestArgs[3], "”")[0]
