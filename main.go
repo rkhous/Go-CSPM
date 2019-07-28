@@ -144,7 +144,13 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		var questReward string
 		var stopInformation map[string]string
 		var check bool
+		var quoteCount = 0
 		if strings.Contains(m.Content, "\"") == true {
+			for _, n := range(strings.Split(m.Content, "")){
+				if n == "\""{
+					quoteCount += 1
+				}
+			}
 			getQuestArgs = strings.Split(m.Content, "\"")
 			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[1], ".quest") != true{
 				stopName = getQuestArgs[1]
@@ -156,6 +162,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				check = false
 			}
 		} else if strings.Contains(m.Content, "“") == true {
+			for _, n := range(strings.Split(m.Content, "")){
+				if n == "“"{
+					quoteCount += 1
+				}
+			}
 			getQuestArgs = strings.Split(m.Content, "“")
 			if len(getQuestArgs) >= 3 && strings.Contains(getQuestArgs[1], ".quest") != true{
 				stopName = strings.Split(getQuestArgs[1], "”")[0]
@@ -169,7 +180,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		} else {
 			check = false
 		}
-		if len(stopInformation) >= 3 && check == true {
+		if len(stopInformation) >= 3 && check == true && quoteCount % 2 == 0 {
 				embed := &discordgo.MessageEmbed{
 					Author: &discordgo.MessageEmbedAuthor{},
 					Color:  0x00ff00,
@@ -190,6 +201,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				config.LiveQuests = append(config.LiveQuests, reportedQuest.ID)
 				fmt.Println("User " + m.Author.Username + " has reported a new quest.")
 				s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your quest was reported successfully.")
+		} else if quoteCount % 2 != 0{
+			s.ChannelMessageSend(m.ChannelID, "Please check your command again, you are missing a quote.")
 		} else if check != true {
 			s.ChannelMessageSend(m.ChannelID, "You have ran the command incorrectly.\n"+
 				"Please see the how-to guide: https://goo.gl/ckdYbE")
