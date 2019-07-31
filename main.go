@@ -163,7 +163,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			}
 		} else if strings.Contains(m.Content, "“") == true {
 			for _, n := range(strings.Split(m.Content, "")){
-				if n == "“"{
+				if n == "“" || n == "”" { //seriously though, why did anyone think smart quotes were needed...
 					quoteCount += 1
 				}
 			}
