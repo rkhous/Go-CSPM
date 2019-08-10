@@ -161,8 +161,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			}
 			if len(getQuestArgs) >= 4 && strings.Contains(getQuestArgs[1], ".quest") != true{
 				stopName = getQuestArgs[1]
-				questType = getQuestArgs[3]
-				questReward = getQuestArgs[5]
+				questType = getQuestArgs[2]
+				questReward = getQuestArgs[3]
 				stopInformation = functions.GrabStopInformation(stopName)
 				check = true
 			}else{
