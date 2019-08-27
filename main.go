@@ -46,45 +46,45 @@ func main() {
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if len(m.Content) == 0{
+	if len(m.Content) == 0 {
 		return
 	}
 
-	if m.Author.ID == s.State.User.ID{
+	if m.Author.ID == s.State.User.ID {
 		return
 	}
 
 	var getArgs []string = strings.Split(m.Content, " ")
 
-	if getArgs[0] == config.Prefix + "setprefix" && len(getArgs) == 2 {
+	if getArgs[0] == config.Prefix+"setprefix" && len(getArgs) == 2 {
 		if functions.CheckIfAdmin(m.Author.ID, config.Administrator) == true {
 			config.Prefix = getArgs[1]
-			s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "! Prefix set to: `" + config.Prefix + "`")
-		}else{
-			s.ChannelMessageSend(m.ChannelID, "Sorry, but you are not a `" + s.State.User.Username + "` admin!")
+			s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Prefix set to: `"+config.Prefix+"`")
+		} else {
+			s.ChannelMessageSend(m.ChannelID, "Sorry, but you are not a `"+s.State.User.Username+"` admin!")
 		}
 	}
 
-	if getArgs[0] == config.Prefix + "resetquests" || getArgs[0] == config.Prefix + "rq"{
-		if functions.CheckIfAdmin(m.Author.ID, config.Administrator) == true{
-			for _, n := range config.LiveQuests{
+	if getArgs[0] == config.Prefix+"resetquests" || getArgs[0] == config.Prefix+"rq" {
+		if functions.CheckIfAdmin(m.Author.ID, config.Administrator) == true {
+			for _, n := range config.LiveQuests {
 				s.ChannelMessageDelete(config.QuestChannel, n)
 			}
 			config.LiveQuests = []string{}
-			s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "! I have reset all quests.")
+			s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! I have reset all quests.")
 			fmt.Println("User " + m.Author.Username + " has deleted all live quests")
-		}else{
-			s.ChannelMessageSend(m.ChannelID, "You are not a `" + s.State.User.Username + "` administrator!")
+		} else {
+			s.ChannelMessageSend(m.ChannelID, "You are not a `"+s.State.User.Username+"` administrator!")
 		}
 	}
 
-	if getArgs[0] == config.Prefix + "spawn"{
-		if len(getArgs) == 3 || len(getArgs) >= 4{
-			if functions.CheckIfPokemon(getArgs[1]) == true{
-				if len(getArgs) >= 4{
+	if getArgs[0] == config.Prefix+"spawn" {
+		if len(getArgs) == 3 || len(getArgs) >= 4 {
+			if functions.CheckIfPokemon(getArgs[1]) == true {
+				if len(getArgs) >= 4 {
 					embed := &discordgo.MessageEmbed{
-						Author:      &discordgo.MessageEmbedAuthor{},
-						Color:       0x00ff00,
+						Author: &discordgo.MessageEmbedAuthor{},
+						Color:  0x00ff00,
 						Description: "**Spawn: **" + strings.Title(getArgs[1]) + "\n" +
 							"**Despawn: ** ~15 Minutes\n" +
 							"**Description: ** " + strings.Title(strings.Join(getArgs[3:], " ")) + "\n" +
@@ -92,47 +92,47 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 						Thumbnail: &discordgo.MessageEmbedThumbnail{
 							URL: "http://www.pokestadium.com/sprites/xy/" + strings.ToLower(getArgs[1]) + ".gif",
 						},
-						Footer:	   &discordgo.MessageEmbedFooter{
-							Text:"Created by github.com/rkhous",
-							IconURL:"https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
-						Title:     "**" + strings.Title(getArgs[1] + " - Click for directions!**"),
-						URL: "https://www.google.com/maps/?q=" + getArgs[2],
+						Footer: &discordgo.MessageEmbedFooter{
+							Text:    "Created by github.com/rkhous",
+							IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
+						Title: "**" + strings.Title(getArgs[1]+" - Click for directions!**"),
+						URL:   "https://www.google.com/maps/?q=" + getArgs[2],
 					}
 					s.ChannelMessageSendEmbed(config.SpawnsChannel, embed)
-					s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "!\n" +
+					s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"!\n"+
 						"I have successfully added your spawn to the spawn channel.")
 					fmt.Println(strings.Title(strings.ToLower(getArgs[1])) + " spawn reported by: " + m.Author.Username)
-				}else if len(getArgs) == 3{
+				} else if len(getArgs) == 3 {
 					embed := &discordgo.MessageEmbed{
-						Author:      &discordgo.MessageEmbedAuthor{},
-						Color:       0x00ff00,
+						Author: &discordgo.MessageEmbedAuthor{},
+						Color:  0x00ff00,
 						Description: "**Spawn: **" + strings.Title(getArgs[1]) + "\n" +
 							"**Despawn: ** ~15 Minutes\n" +
 							"**Reported by: **" + m.Author.Mention(),
 						Thumbnail: &discordgo.MessageEmbedThumbnail{
 							URL: "http://www.pokestadium.com/sprites/xy/" + strings.ToLower(getArgs[1]) + ".gif",
 						},
-						Footer:	   &discordgo.MessageEmbedFooter{
-							Text:"Created by github.com/rkhous",
-							IconURL:"https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
-						Title:     "**" + strings.Title(getArgs[1] + " - Click for directions!**"),
-						URL: "https://www.google.com/maps/?q=" + getArgs[2],
+						Footer: &discordgo.MessageEmbedFooter{
+							Text:    "Created by github.com/rkhous",
+							IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
+						Title: "**" + strings.Title(getArgs[1]+" - Click for directions!**"),
+						URL:   "https://www.google.com/maps/?q=" + getArgs[2],
 					}
 					s.ChannelMessageSendEmbed(config.SpawnsChannel, embed)
-					s.ChannelMessageSend(m.ChannelID, "Okay, " + m.Author.Mention() + "!\n" +
+					s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"!\n"+
 						"I have successfully added your spawn to the spawn channel.")
 					fmt.Println(strings.Title(strings.ToLower(getArgs[1])) + " spawn reported by: " + m.Author.Username)
-				}else{
-					s.ChannelMessageSend(m.ChannelID, "You ran the command incorrectly.\n" +
+				} else {
+					s.ChannelMessageSend(m.ChannelID, "You ran the command incorrectly.\n"+
 						"Please see the how-to: https://goo.gl/ckdYbE")
 				}
-			}else{
-				s.ChannelMessageSend(m.ChannelID, m.Author.Mention() + ", `" + strings.Title(getArgs[1]) + "` is not a Pokemon!")
+			} else {
+				s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+", `"+strings.Title(getArgs[1])+"` is not a Pokemon!")
 			}
-		}else{
-			s.ChannelMessageSend(m.ChannelID, m.Author.Mention() + ", you have used the command incorrectly. " +
-				"The correct command is:\n`" +
-				config.Prefix + "spawn <pokemon> <lat,lon> <description>`\n" +
+		} else {
+			s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+", you have used the command incorrectly. "+
+				"The correct command is:\n`"+
+				config.Prefix+"spawn <pokemon> <lat,lon> <description>`\n"+
 				"If you have no description to share, leave it blank!")
 		}
 	}
@@ -224,27 +224,113 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		}
 	}
 
-	if getArgs[0] == config.Prefix + "lq"{
+	if getArgs[0] == config.Prefix+"lq" {
 		fmt.Println(config.LiveQuests)
 	}
 
-	if getArgs[0] == config.Prefix + "search"{
+	if getArgs[0] == config.Prefix+"tr"{
+		var check bool
+		var pokemon string = getArgs[1]
+		if strings.Contains(pokemon, ","){
+			var multiplePokemon = []string{}
+			multiplePokemon = strings.Split(pokemon, ",")
+			for _, n := range(multiplePokemon){
+				if functions.CheckIfPokemon(n){
+					check = true
+				}else{
+					check = false
+					s.ChannelMessageSend(m.ChannelID, "Sorry, but `" + strings.Title(n) + "` is not a Pokémon.")
+					break
+				}
+			}
+			if check == true{
+				var userInput string = strings.Join(getArgs[2:], " ")
+				var stopInformation map[string]string
+				if len(getArgs) >= 3 {
+					stopInformation = functions.GrabStopInformation(userInput)
+					if len(stopInformation) > 0{
+						embed := &discordgo.MessageEmbed{
+							Author: &discordgo.MessageEmbedAuthor{},
+							Color:  0x00ff00,
+							Description:
+								"**Possible Rewards: **" + strings.Title(strings.Join(multiplePokemon, ", ")) + "\n" +
+								"**Despawn: ** ~15 minutes\n" +
+								"**Reported by: **" + m.Author.Mention(),
+							Thumbnail: &discordgo.MessageEmbedThumbnail{
+								URL: stopInformation["img"],
+							},
+							Footer: &discordgo.MessageEmbedFooter{
+								Text:    "Created by github.com/rkhous",
+								IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
+							Title: "**" + stopInformation["name"] + " - Click for directions!**",
+							URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
+						}
+						s.ChannelMessageSendEmbed(m.ChannelID, embed)
+						fmt.Println("User " + m.Author.Username + " has reported a new TR quest.")
+						s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your TR quest was reported successfully.")
+					}else{
+						s.ChannelMessageSend(m.ChannelID, "Sorry, I did not find a Pokéstop for `" + strings.Title(strings.Join(getArgs[2:], " ")) + "`")
+					}
+				}
+			}
+		}else{
+			var userInput string = strings.Join(getArgs[2:], " ")
+			var stopInformation map[string]string
+			if len(getArgs) >= 3{
+				if functions.CheckIfPokemon(pokemon){
+					stopInformation = functions.GrabStopInformation(userInput)
+					if len(stopInformation) > 0{
+						embed := &discordgo.MessageEmbed{
+							Author: &discordgo.MessageEmbedAuthor{},
+							Color:  0x00ff00,
+							Description:
+								"**Possible Reward: **" + strings.Title(pokemon) + "\n" +
+								"**Despawn: ** ~15 minutes\n" +
+								"**Reported by: **" + m.Author.Mention(),
+							Thumbnail: &discordgo.MessageEmbedThumbnail{
+								URL: stopInformation["img"],
+							},
+							Footer: &discordgo.MessageEmbedFooter{
+								Text:    "Created by github.com/rkhous",
+								IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
+							Title: "**" + stopInformation["name"] + " - Click for directions!**",
+							URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
+						}
+						s.ChannelMessageSendEmbed(m.ChannelID, embed)
+						fmt.Println("User " + m.Author.Username + " has reported a new TR quest.")
+						s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your TR quest was reported successfully.")
+					}else{
+						s.ChannelMessageSend(m.ChannelID, "Sorry, I did not find a Pokéstop for `" + strings.Title(strings.Join(getArgs[2:], " ")) + "`")
+					}
+				}else{
+					s.ChannelMessageSend(m.ChannelID, "Sorry, but `" + strings.Title(getArgs[1]) + "` is not a Pokémon!")
+				}
+			}else{
+				s.ChannelMessageSend(m.ChannelID, "You are running the command incorrectly. Please see the example below:\n" +
+					"`.tr <pokemon_name> <pokestop>`\n" +
+					"Example: `.tr dratini chi dynasty`")
+			}
+		}
+
+	}
+
+	if getArgs[0] == config.Prefix+"search" {
 		var listOfStops []string = functions.SearchStops(strings.Join(getArgs[1:], " "))
 		fmt.Println(m.Author.Username + " searched for: " + strings.Join(getArgs[1:], " "))
 		if len(listOfStops) > 0 {
-			if len(strings.Join(listOfStops, "\n")) > 2000{
-				s.ChannelMessageSend(m.ChannelID, "Too broad of a search, too many gyms returned. " +
+			if len(strings.Join(listOfStops, "\n")) > 2000 {
+				s.ChannelMessageSend(m.ChannelID, "Too broad of a search, too many gyms returned. "+
 					"\nTry being more specific.")
-			}else{
+			} else {
 				s.ChannelMessageSend(m.ChannelID, strings.Join(listOfStops, "\n"))
 			}
-		}else{
+		} else {
 			s.ChannelMessageSend(m.ChannelID, "None found.")
 		}
 	}
 
-	if getArgs[0] == config.Prefix + "commands"{
-		s.ChannelMessageSend(m.ChannelID, m.Author.Mention() + ", please see the link below for the commands!\n" +
+	if getArgs[0] == config.Prefix+"commands" {
+		s.ChannelMessageSend(m.ChannelID, m.Author.Mention()+", please see the link below for the commands!\n"+
 			"https://goo.gl/ckdYbE")
 	}
 }
