@@ -265,7 +265,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Title: "**" + stopInformation["name"] + " - Click for directions!**",
 							URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
 						}
-						s.ChannelMessageSendEmbed(m.ChannelID, embed)
+						s.ChannelMessageSendEmbed(config.TeamRocketChannel, embed)
 						fmt.Println("User " + m.Author.Username + " has reported a new TR quest.")
 						s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your TR quest was reported successfully.")
 					}else{
@@ -296,7 +296,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Title: "**" + stopInformation["name"] + " - Click for directions!**",
 							URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
 						}
-						s.ChannelMessageSendEmbed(m.ChannelID, embed)
+						s.ChannelMessageSendEmbed(config.TeamRocketChannel, embed)
 						fmt.Println("User " + m.Author.Username + " has reported a new TR quest.")
 						s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your TR quest was reported successfully.")
 					}else{
