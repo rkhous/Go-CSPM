@@ -90,7 +90,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							"**Description: ** " + strings.Title(strings.Join(getArgs[3:], " ")) + "\n" +
 							"**Reported by: **" + m.Author.Mention(),
 						Thumbnail: &discordgo.MessageEmbedThumbnail{
-							URL: "http://www.pokestadium.com/sprites/xy/" + strings.ToLower(getArgs[1]) + ".gif",
+							URL: "https://img.pokemondb.net/sprites/go/normal/" + strings.ToLower(getArgs[1]) + ".png",
 						},
 						Footer: &discordgo.MessageEmbedFooter{
 							Text:    "Created by github.com/rkhous",
@@ -110,7 +110,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							"**Despawn: ** ~15 Minutes\n" +
 							"**Reported by: **" + m.Author.Mention(),
 						Thumbnail: &discordgo.MessageEmbedThumbnail{
-							URL: "http://www.pokestadium.com/sprites/xy/" + strings.ToLower(getArgs[1]) + ".gif",
+							URL: "https://img.pokemondb.net/sprites/go/normal/" + strings.ToLower(getArgs[1]) + ".png",
 						},
 						Footer: &discordgo.MessageEmbedFooter{
 							Text:    "Created by github.com/rkhous",
@@ -194,26 +194,26 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			check = false
 		}
 		if len(stopInformation) >= 3 && check == true && quoteCount % 2 == 0 {
-				embed := &discordgo.MessageEmbed{
-					Author: &discordgo.MessageEmbedAuthor{},
-					Color:  0x00ff00,
-					Description: "**Reset: **12:00am\n" +
-						"**Quest: **" + strings.Title(questType) + "\n" +
-						"**Reward: ** " + strings.Title(questReward) + "\n" +
-						"**Reported by: **" + m.Author.Mention(),
-					Thumbnail: &discordgo.MessageEmbedThumbnail{
-						URL: stopInformation["img"],
-					},
-					Footer: &discordgo.MessageEmbedFooter{
-						Text:    "Created by github.com/rkhous",
-						IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
-					Title: "**" + stopInformation["name"] + " - Click for directions!**",
-					URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
-				}
-				reportedQuest, _ := s.ChannelMessageSendEmbed(config.QuestChannel, embed)
-				config.LiveQuests = append(config.LiveQuests, reportedQuest.ID)
-				fmt.Println("User " + m.Author.Username + " has reported a new quest.")
-				s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your quest was reported successfully.")
+			embed := &discordgo.MessageEmbed{
+				Author: &discordgo.MessageEmbedAuthor{},
+				Color:  0x00ff00,
+				Description: "**Reset: **12:00am\n" +
+					"**Quest: **" + strings.Title(questType) + "\n" +
+					"**Reward: ** " + strings.Title(questReward) + "\n" +
+					"**Reported by: **" + m.Author.Mention(),
+				Thumbnail: &discordgo.MessageEmbedThumbnail{
+					URL: stopInformation["img"],
+				},
+				Footer: &discordgo.MessageEmbedFooter{
+					Text:    "Created by github.com/rkhous",
+					IconURL: "https://d1q6f0aelx0por.cloudfront.net/product-logos/81630ec2-d253-4eb2-b36c-eb54072cb8d6-golang.png"},
+				Title: "**" + stopInformation["name"] + " - Click for directions!**",
+				URL:   "https://www.google.com/maps/?q=" + stopInformation["lat,lon"],
+			}
+			reportedQuest, _ := s.ChannelMessageSendEmbed(config.QuestChannel, embed)
+			config.LiveQuests = append(config.LiveQuests, reportedQuest.ID)
+			fmt.Println("User " + m.Author.Username + " has reported a new quest.")
+			s.ChannelMessageSend(m.ChannelID, "Okay, "+m.Author.Mention()+"! Your quest was reported successfully.")
 		} else if quoteCount % 2 != 0{
 			s.ChannelMessageSend(m.ChannelID, "Please check your command again, you are missing a quote.")
 		} else if check != true {
@@ -253,7 +253,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Author: &discordgo.MessageEmbedAuthor{},
 							Color:  0x00ff00,
 							Description:
-								"**Possible Rewards: **" + strings.Title(strings.Join(multiplePokemon, ", ")) + "\n" +
+							"**Possible Rewards: **" + strings.Title(strings.Join(multiplePokemon, ", ")) + "\n" +
 								"**Despawn: ** ~15 minutes\n" +
 								"**Reported by: **" + m.Author.Mention(),
 							Thumbnail: &discordgo.MessageEmbedThumbnail{
@@ -284,7 +284,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 							Author: &discordgo.MessageEmbedAuthor{},
 							Color:  0x00ff00,
 							Description:
-								"**Possible Reward: **" + strings.Title(pokemon) + "\n" +
+							"**Possible Reward: **" + strings.Title(pokemon) + "\n" +
 								"**Despawn: ** ~15 minutes\n" +
 								"**Reported by: **" + m.Author.Mention(),
 							Thumbnail: &discordgo.MessageEmbedThumbnail{
